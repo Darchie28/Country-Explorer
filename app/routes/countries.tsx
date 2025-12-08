@@ -12,7 +12,11 @@ export default function Countries({ loaderData }: Route.ComponentProps) {
   const [search, setSearch] = useState<string>("");
   const [region, setRegion] = useState<string>("");
 
-  // Ensure loaderData is an array
+  // Debug: Check what loaderData contains
+  console.log("loaderData:", loaderData);
+  console.log("Is array?", Array.isArray(loaderData));
+  
+  // Ensure loaderData is an array before filtering
   const countries = Array.isArray(loaderData) ? loaderData : [];
 
   const filteredCountries = countries.filter((country: any) => {
