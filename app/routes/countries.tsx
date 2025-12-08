@@ -12,7 +12,10 @@ export default function Countries({ loaderData }: Route.ComponentProps) {
   const [search, setSearch] = useState<string>("");
   const [region, setRegion] = useState<string>("");
 
-  const filteredCountries = loaderData.filter((country: any) => {
+  // Ensure loaderData is an array
+  const countries = Array.isArray(loaderData) ? loaderData : [];
+
+  const filteredCountries = countries.filter((country: any) => {
     const matchesRegion =
       !region || country.region.toLowerCase() === region.toLowerCase();
     const matchesSearch =
