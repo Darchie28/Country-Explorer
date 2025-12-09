@@ -3,9 +3,20 @@ import type { Route } from "./+types/countries";
 import { useState } from "react";
 
 export async function clientLoader() {
-  const res = await fetch("https://restcountries.com/v3.1/all");
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch("https://restcountries.com/v3.1/all");
+    if (!res.ok) {
+      // If response is not OK, throw an error
+      throw new Error(`API error: ${res.status}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    // Log the error so you see it in your browser console during development
+    console.error("Failed to fetch countries API:", error);
+    // Return an empty array to your countries component to prevent rendering errors
+    return [];
+  }
 }
 
 export default function Countries({ loaderData }: Route.ComponentProps) {
